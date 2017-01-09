@@ -120,19 +120,27 @@
 		
 		\paragraph{Extra Magic} 
 
-       \clearpage
+	\clearpage
     \section{CMake walkthrough}
+    
        \subsection{Using CMake via the Gui}
-   %\figuremacro{h}{cmake_blank}{A UFO?}{ -  Make sure to put in some relevant reference images to spruce things up.}{0.7}
-   \subsection{Using CMake via the Command Line}
-   \clearpage
-    \section{Common Mistakes}
-    \paragraph{Editing the Build Folder}
-   
-    \paragraph{Committing / Saving the build folder}
-    
-    \paragraph{Building the build folder in the source folder}
-    
-    \section{Advice for Using CMake in your future projects}
-    
+	   \figuremacro{h}{01_cmake_over}{GUI Process}{ }{1.0}
+	   \subsection{Using CMake via the Command Line}
+	   
+	   \begin{lstlisting}
+	   mkdir projectname_build
+	   cd projectname_build
+	   cmake -G "Visual Studio 14 2015 Win64" ../projectname/
+	   \end{lstlisting}
+	   
+	\clearpage
+	\section{Common Mistakes}
+		\paragraph{Editing the Build Folder}
+		
+		\paragraph{Committing / Saving the build folder}
+		
+		\paragraph{Building the build folder in the source folder}
+		
+	\section{Advice for Using CMake in your future projects}
+
 \end{document}
