@@ -1,0 +1,126 @@
+%FILL THESE IN
+\def\mytitle{Using Git Version Control}
+%YOU DON'T NEED TO TOUCH ANYTHING BELOW
+\documentclass[11pt, a4paper]{article}
+\usepackage[a4paper,outer=1.5cm,inner=1.5cm,top=1.75cm,bottom=1.5cm]{geometry}
+\twocolumn
+\usepackage{graphicx}
+\graphicspath{{./images/}}
+%colour our links, remove weird boxes
+\usepackage[colorlinks,linkcolor={black},citecolor={blue!80!black},urlcolor={blue!80!black}]{hyperref}
+%Stop indentation on new paragraphs
+\usepackage[parfill]{parskip}
+%Napier logo top right
+\usepackage{watermark}
+%Lorem Ipusm dolor please don't leave any in you final repot ;)
+\usepackage{lipsum}
+\usepackage{xcolor}
+\usepackage{listings}
+%give us the Capital H that we all know and love
+\usepackage{float}
+%tone down the linespacing after section titles
+\usepackage{titlesec}
+%Cool maths printing
+\usepackage{amsmath}
+%PseudoCode
+\usepackage{algorithm2e}
+
+\usepackage{titling}
+\pretitle{\begin{center}\fontsize{18bp}{18bp}\selectfont}
+	\posttitle{\par\end{center}}
+\preauthor{\begin{center}\fontsize{14bp}{14bp}\selectfont}
+	\postauthor{\par\end{center}}
+\predate{\begin{center}\fontsize{14bp}{14bp}\selectfont}
+\postdate{\par\end{center}\vspace{10bp}}
+
+\titlespacing{\subsection}{0pt}{\parskip}{-3pt}
+\titlespacing{\subsubsection}{0pt}{\parskip}{-\parskip}
+\titlespacing{\paragraph}{0pt}{\parskip}{\parskip}
+\newcommand{\figuremacro}[5]{
+    \begin{figure}[#1]
+        \centering
+        \includegraphics[width=#5\columnwidth]{#2}
+        \caption[#3]{\textbf{#3}#4}
+        \label{fig:#2}
+    \end{figure}
+}
+\newcommand{\ts}{\textsuperscript}
+\lstset{
+    escapeinside={/*@}{@*/}, language=C++,
+    basicstyle=\fontsize{8.5}{12}\selectfont,
+    numbers=left,numbersep=2pt,xleftmargin=2pt,frame=tb,
+    columns=fullflexible,showstringspaces=false,tabsize=4,
+    keepspaces=true,showtabs=false,showspaces=false,
+    backgroundcolor=\color{white}, morekeywords={inline,public,
+        class,private,protected,struct},captionpos=t,lineskip=-0.4em,
+    aboveskip=10pt, extendedchars=true, breaklines=true,
+    prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+    keywordstyle=\color[rgb]{0,0,1},
+    commentstyle=\color[rgb]{0.133,0.545,0.133},
+    stringstyle=\color[rgb]{0.627,0.126,0.941}
+}
+
+\thiswatermark{\centering \put(336.5,-38.0){\includegraphics[scale=0.8]{logo}} }
+\title{\textbf{\mytitle}}
+\author{Edinburgh Napier University}
+\date{\today}
+\hypersetup{pdfauthor=Edinburgh Napier University,pdftitle=\mytitle,pdfkeywords=cmake}
+\sloppy
+\begin{document}
+	 \onecolumn
+\maketitle
+   
+    \begin{abstract}
+        Version control(VC) is an industry standard practise. You will not find a software or technical company not using it in some form. There are many different implementations of VC, each with pro's and con's. We have adopted GIT, which is the standard for open source projects. This is one part of the system, you also need somewhere to host your VC code repository, for this we use Github.com or Bitbucket.com
+    \end{abstract}
+    %START FROM HERE
+    
+    \section{Quick Start: Getting and updating module content}
+    If you are on a module which is hoisting content via github, this section is for you.
+    \subsection{Cloning the code for the first time}
+    Step one, find the repository(repo) webpage. 
+      \figuremacro{h}{github_over}{A github repo page for the content we wish to download}{ }{0.8}
+    
+    We now have three options:
+    \begin{enumerate}
+    	\item \textbf{FORK} The best option -- by pressing the fork button.
+    	\item \textbf{CLONE} 2\ts{nd} best, or only option if you want a private repo -- Green clone button, Copy HTTPS link into sourcetree/gitbash or press open in desktop to clone with github desktop
+    	\item \textbf{DOWNLOAD} Don't do this unless you need the file for some other reason, this will get you the files without any git information and you will have to create the repo manually. -- Press Green clone Button, then Download Zip
+    \end{enumerate}
+    
+    \figuremacro{h}{gh-clone-dl}{Clone or download options}{ }{0.35}
+
+	\paragraph{Forking process}
+	Forking makes a copy of the repo within your own github account, this is equivalent to cloning the repo to your pc, creating the repo on github and then pushing it back up. It has the benefits that Github knows this is a fork and will update stats and metrics accordingly. If you ever need to do a pull request, this has to be done via a fork. You can now CLONE your fork down to your pc, work on it and push whenever. The one side effect of this is that Github does not allow for private forks, so if you wish to keep your work private, you must use manual clone menthod.
+
+	\paragraph{Cloning process}
+	Using your GIt client of choice, clone the repo using the https link provided by github. Then create a new repo on Github.com, add this as a remote to your local repo and push to it. This is very similar to creating a repo from scratch, but you've already got some content.
+	
+	\section{Updating content}
+	If the original module repo has been updated and you want to grab these changes, the process is:
+	\subsubsection{Add the original Repo as a remote}
+		\begin{lstlisting}[caption = gitbash ADD REMOTE command,  language=bash]
+			git remote add updates https://github.com/edinburgh-napier/repo.git
+		\end{lstlisting}
+		Or using Sourcetree:\\
+		Repository $>$ Repository Settings $>$ Remotes Tab $>$ Add button\\
+		Remote name: 'Updates'\\
+		Url / Path:  'https://github.com/edinburgh-napier/repo.git'
+	
+	\subsubsection{Pull the updates}
+		\begin{lstlisting}[caption = gitbash PULL command,  language=bash]
+		git pull updates master
+		\end{lstlisting}
+		Or using Sourcetree:\\
+		PULL $>$ pull from remote: updates $>$ press OK
+		
+	\subsubsection{Deal with any merge conflicts}	
+	Either manually edit the problem files to resolve, or use Sourcetree's 'Resolve$>$Keep theirs' feature if you only want to completely overwrite your local files with the new content (and possibly loose work).
+	\subsubsection{Commit and push to your repo}	
+	And you are done!
+	
+	\clearpage
+    \section{Git workflow}
+	    Coming soon
+
+\end{document}
